@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <title>Dvim</title>
+  <meta charset="utf-8"/>
+  <style>
+    body {margin: 0}
+    .CodeMirror {height: 100vh}
+  </style>
+  <link rel="stylesheet" href="../lib/codemirror.css">
+  <link rel="stylesheet" href="../addon/dialog/dialog.css">
+
+  <script src="../lib/codemirror.js"></script>
+  <script src="../addon/dialog/dialog.js"></script>
+  <script src="../addon/search/searchcursor.js"></script>
+  <script src="../mode/clike/clike.js"></script>
+  <script src="../addon/edit/matchbrackets.js"></script>
+  <script src="../keymap/vim.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      CodeMirror.commands.save = function(){ alert("Saving"); };
+      var editor = new CodeMirror(document.body, {
+        lineNumbers: true,
+        mode: "text/x-csrc",
+        keyMap: "vim",
+        matchBrackets: true,
+        showCursorWhenSelecting: true
+      });
+    })
+  </script>
+</head>
+<body></body>
+</html>
