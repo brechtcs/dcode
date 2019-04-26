@@ -1,4 +1,3 @@
-import assert from 'dat://dterm.hashbase.io/modules/assert.js'
 import parsePath from 'dat://dterm.hashbase.io/modules/dterm-parse-path.js'
 
 const EXT = /\.[\w]+$/
@@ -15,12 +14,17 @@ export default class DcodeFile {
   }
 
   async open () {
-    return this.archive.readFile(this.path)
+    try {
+      return await this.archive.readFile(this.path)
+    } catch (err) {
+      console.error(err)
+      return ''
+    }
   }
 
   async save (contents) {
+    this.archive.writeFile(this.path, contents)
     this.unsaved = false
-    return this.archive.writeFile(this.path, contents)
   }
 
   get base () {
@@ -52,8 +56,8 @@ export default class DcodeFile {
 /**
  * Tests
  */
-export function test () {
+export function test (t) {
   var file = new DcodeFile(`${window.location.origin}/path/to/barf.js`)
-  assert(file.base === 'barf.js', 'wrong basename')
-  assert(file.dir === 'path/to', 'wrong dirname')
+  t.ok(file.base === 'barf.js', 'basename')
+  t.ok(file.dir === 'path/to', 'dirname')
 }
