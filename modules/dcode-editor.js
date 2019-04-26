@@ -1,14 +1,21 @@
 export default async function (file, opts) {
-  await import(`/shared/codemirror-v5.45.0/keymap/${opts.keymap}.js`)
-
   var el = opts.el
     ? document.querySelector(opts.el)
     : document.body
 
+  if (opts.keymap) {
+    await import(`/shared/codemirror-v5.45.0/keymap/${opts.keymap}.js`)
+  }
+  if (opts.mode) {
+    await import(`/shared/codemirror-v5.45.0/mode/${opts.mode}/${opts.mode}.js`)
+    el.classList.add(opts.mode)
+  }
+
   var editor = CodeMirror(el, {
-    mode: file.mime,
+    mode: opts.mode,
     keyMap: opts.keymap,
-    lineNumbers: true,
+    lineWrapping: opts.mode === 'markdown',
+    lineNumbers: opts.mode !== 'markdown',
     matchBrackets: true,
     autoCloseBrackets: true,
     autoCloseTags: true,

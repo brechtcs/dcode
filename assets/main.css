@@ -1,0 +1,14 @@
+body {
+  margin: 0
+}
+body > .CodeMirror {
+  height: 100vh
+}
+body.markdown  .CodeMirror-sizer {
+  max-width: 37em;
+  padding: 0 2em;
+}
+
+.cm-trailingspace {
+  background-color: rgba(255, 0, 0, .25)
+}

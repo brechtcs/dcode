@@ -4,9 +4,10 @@ import File from './modules/dcode-file.js'
 var file = new File(window.location.pathname)
 var params = new URLSearchParams(window.location.search)
 var keymap = params.get('keymap')
+var mode = params.get('mode') || guessMode()
 
 document.addEventListener('DOMContentLoaded', async function () {
-  var editor = await Editor(file, {keymap})
+  var editor = await Editor(file, {keymap, mode})
   editor.focus()
 
   window.addEventListener('focus', function () {
@@ -21,3 +22,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
   })
 })
+
+function guessMode () {
+  var obj = CodeMirror.findModeByExtension(file.ext)
+  return obj && obj.mode
+}

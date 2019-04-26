@@ -1,6 +1,6 @@
 import parsePath from 'dat://dterm.hashbase.io/modules/dterm-parse-path.js'
 
-const EXT = /\.[\w]+$/
+const EXT = /\.([\w]+)$/
 const SEP = '/'
 
 export default class DcodeFile {
@@ -36,20 +36,11 @@ export default class DcodeFile {
   }
 
   get ext () {
-    return this.path.match(EXT)[0]
-  }
-
-  get mime () {
-    switch (this.ext) {
-      case '.css': return 'text/css'
-      case '.html': return 'text/html'
-      case '.js': return 'application/javascript'
-      default: return 'text/plain'
-    }
+    return this.path.match(EXT)[1]
   }
 
   get name () {
-    return this.base.replace(this.ext, '')
+    return this.base.replace(EXT, '')
   }
 }
 
@@ -59,5 +50,7 @@ export default class DcodeFile {
 export function test (t) {
   var file = new DcodeFile(`${window.location.origin}/path/to/barf.js`)
   t.ok(file.base === 'barf.js', 'basename')
+  t.ok(file.ext === 'js', 'extname')
   t.ok(file.dir === 'path/to', 'dirname')
+  t.ok(file.name === 'barf', 'filename')
 }
