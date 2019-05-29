@@ -1,0 +1,11 @@
+<!doctype html>
+<html><head>
+    <title>dterm</title>
+    <meta charset="utf-8">
+
+	<link rel="stylesheet" href="dat://dfurl.hashbase.io/vendor/water-light-v1.4.0.css">
+  </head>
+  <body>
+    <main id="dcode-docs" contenteditable="false"><h1>dcode</h1><p>Distributed Code Editor.</p><h2>Usage</h2><p>This editor is a thin wrapper around <a href="/4de7d62d28a4c3a1ade3ed86155e40b4a80d544a439808c1e577316b23da79c5/vendor/codemirror-v5.45.0">CodeMirror</a>, primarily intended to be used with <a href="https://dterm.hashbase.io/docs">dterm</a>. For that reason there are three installable commands available to open files from your terminal in a new dcode tab. You can install and use them like so:</p><pre class="nohighlight">&gt; term install dat://dcode.hashbase.io/commands/code.js<br>&gt; code path/to/file.txt<br><br># With Emacs keybindings<br>&gt; term install dat://dcode.hashbase.io/commands/emacs.js<br>&gt; emacs path/to/file.txt<br><br># With vim keybindings<br>&gt; term install dat://dcode.hashbase.io/commands/vim.js<br>&gt; vim path/to/file.txt</pre><p>If the file in question does not exist, it will be created. Any changes you make will be saved automatically.</p><h2>License</h2><p>AGPL-v3.0</p></main>
+  
+</body></html>

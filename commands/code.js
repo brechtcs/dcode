@@ -1,13 +1,13 @@
-import joinPath from 'dat://dterm.hashbase.io/modules/join-path.js'
+import {resolveUrl} from 'dat://dfurl.hashbase.io/modules/url.js'
 
-export default function (opts, location) {
-  var origin = new URL(import.meta.url).origin
-  var path = joinPath(window.location.pathname, location)
-  var keymap = opts.keymap || 'sublime'
+export default async function (opts, location) {
+  let {cwd, home} = (await import(`${window.location.origin}/modules/public-state.js`)).default
+  let file = resolveUrl(location, cwd, home)
 
-  try {
-    window.open(`${origin}${path}?keymap=${keymap}`)
-  } catch (err) {
-    return new Error(err)
+  if (await file.isDirectory()) {
+    throw new Error('dcode cannot open directories')
   }
+  file.app = import.meta.url
+  file.search = `?keymap=${opts.keymap || 'sublime'}`
+  return file.open()
 }
